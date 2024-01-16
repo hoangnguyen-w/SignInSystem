@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 #nullable disable
 namespace SignInSystem.Entity
 {
@@ -40,5 +41,12 @@ namespace SignInSystem.Entity
         [ForeignKey("Role")]
         public int RoleID { get; set; }
         public virtual Role Role { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Score> Scores { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Tuition> Tuitions { get; set; }
     }
 }

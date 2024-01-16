@@ -1,6 +1,7 @@
 ﻿#nullable disable
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SignInSystem.Entity
 {
@@ -33,5 +34,9 @@ namespace SignInSystem.Entity
         [ForeignKey("Subject")]
         public int SubjectID { get; set; }
         public virtual Subject Subject { get; set; }
+
+
+        [JsonIgnore]
+        public virtual ICollection<Tuition> Tuitions { get; set; }
     }
 }

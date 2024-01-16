@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SignInSystem.Context;
+using SignInSystem.Interface;
+using SignInSystem.Service;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +27,12 @@ builder.Services.AddCors(p => p.AddPolicy("MyCors", build =>
 {
     build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
 }));
+
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 

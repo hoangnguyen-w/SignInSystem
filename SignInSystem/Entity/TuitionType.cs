@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 #nullable disable
 namespace SignInSystem.Entity
 {
@@ -9,5 +10,8 @@ namespace SignInSystem.Entity
 
         public string TuitionTypeName { get; set; }
 
+
+        [JsonIgnore]
+        public virtual ICollection<Tuition> Tuitions { get; set; }
     }
 }

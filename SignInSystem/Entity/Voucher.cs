@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 #nullable disable
 namespace SignInSystem.Entity
 {
@@ -11,5 +12,8 @@ namespace SignInSystem.Entity
 
         public int PercentDiscount { get; set; }
 
+
+        [JsonIgnore]
+        public virtual ICollection<Student> Students { get; set; }
     }
 }
