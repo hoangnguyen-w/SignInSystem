@@ -22,7 +22,7 @@ namespace SignInSystem.Entity
 
         public string Address { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [MaxLength(20)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Input your Number")]
@@ -35,7 +35,7 @@ namespace SignInSystem.Entity
 
         //Khóa ngoại
         [ForeignKey("Voucher")]
-        public int VoucherID { get; set; }
+        public int? VoucherID { get; set; }
         public virtual Voucher Voucher { get; set; }
 
         [ForeignKey("Role")]
@@ -48,5 +48,11 @@ namespace SignInSystem.Entity
 
         [JsonIgnore]
         public virtual ICollection<Tuition> Tuitions { get; set; }
+
+
+        //JWT authentication
+        public string RefreshToken { get; set; }
+        public DateTime TokenCreated { get; set; }
+        public DateTime TokenExpires { get; set; }
     }
 }

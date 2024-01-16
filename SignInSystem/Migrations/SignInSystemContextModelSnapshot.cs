@@ -38,14 +38,34 @@ namespace SignInSystem.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("TokenCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TokenExpires")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("AccountID");
 
                     b.HasIndex("RoleID");
 
                     b.ToTable("Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            AccountID = 1,
+                            Email = "Admin",
+                            Password = "123",
+                            RoleID = 1,
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("SignInSystem.Entity.Class", b =>
@@ -228,7 +248,7 @@ namespace SignInSystem.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -252,13 +272,22 @@ namespace SignInSystem.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
 
                     b.Property<string>("StudentName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VoucherID")
+                    b.Property<DateTime>("TokenCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TokenExpires")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("VoucherID")
                         .HasColumnType("int");
 
                     b.HasKey("StudentID");
@@ -268,6 +297,18 @@ namespace SignInSystem.Migrations
                     b.HasIndex("VoucherID");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            StudentID = "STU-01",
+                            Email = "student",
+                            Password = "123",
+                            RoleID = 1,
+                            StudentName = "Test Student",
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("SignInSystem.Entity.Subject", b =>
@@ -294,6 +335,48 @@ namespace SignInSystem.Migrations
                             SubjectID = 1,
                             SubjectName = "Cờ Tướng - Cờ Vua",
                             Time = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            SubjectID = 2,
+                            SubjectName = "Đàn Piano",
+                            Time = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            SubjectID = 3,
+                            SubjectName = "Cầu lông",
+                            Time = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            SubjectID = 4,
+                            SubjectName = "Bơi lội",
+                            Time = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            SubjectID = 5,
+                            SubjectName = "Tiếng Anh",
+                            Time = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            SubjectID = 6,
+                            SubjectName = "Công Nghệ Thông Tin",
+                            Time = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            SubjectID = 7,
+                            SubjectName = "Tiếng Nhật",
+                            Time = new TimeSpan(0, 1, 30, 0, 0)
+                        },
+                        new
+                        {
+                            SubjectID = 8,
+                            SubjectName = "Âm Nhạc",
+                            Time = new TimeSpan(0, 1, 30, 0, 0)
                         });
                 });
 
@@ -305,7 +388,7 @@ namespace SignInSystem.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DateOfBirth")
+                    b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -323,6 +406,9 @@ namespace SignInSystem.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
 
@@ -335,6 +421,12 @@ namespace SignInSystem.Migrations
                     b.Property<string>("TeacherName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("TokenCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TokenExpires")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("TeacherID");
 
                     b.HasIndex("RoleID");
@@ -342,6 +434,20 @@ namespace SignInSystem.Migrations
                     b.HasIndex("SubjectID");
 
                     b.ToTable("Teachers");
+
+                    b.HasData(
+                        new
+                        {
+                            TeacherID = "TEA-01",
+                            Email = "teacher",
+                            Password = "123",
+                            RoleID = 1,
+                            SubjectID = 2,
+                            TaxCode = "VND-TEA-01",
+                            TeacherName = "Test Teacher",
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("SignInSystem.Entity.Tuition", b =>
@@ -419,7 +525,7 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Account", b =>
                 {
                     b.HasOne("SignInSystem.Entity.Role", "Role")
-                        .WithMany()
+                        .WithMany("Accounts")
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -430,13 +536,13 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Class", b =>
                 {
                     b.HasOne("SignInSystem.Entity.Semester", "Semester")
-                        .WithMany()
+                        .WithMany("Classes")
                         .HasForeignKey("SemesterID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SignInSystem.Entity.Subject", "Subject")
-                        .WithMany()
+                        .WithMany("Classes")
                         .HasForeignKey("SubjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -449,7 +555,7 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Schedule", b =>
                 {
                     b.HasOne("SignInSystem.Entity.Teacher", "Teacher")
-                        .WithMany()
+                        .WithMany("Schedules")
                         .HasForeignKey("TeacherID");
 
                     b.Navigation("Teacher");
@@ -458,13 +564,13 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Score", b =>
                 {
                     b.HasOne("SignInSystem.Entity.ScoreType", "ScoreType")
-                        .WithMany()
+                        .WithMany("Scores")
                         .HasForeignKey("ScoreTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SignInSystem.Entity.Student", "Student")
-                        .WithMany()
+                        .WithMany("Scores")
                         .HasForeignKey("StudentID");
 
                     b.Navigation("ScoreType");
@@ -475,16 +581,14 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Student", b =>
                 {
                     b.HasOne("SignInSystem.Entity.Role", "Role")
-                        .WithMany()
+                        .WithMany("Students")
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SignInSystem.Entity.Voucher", "Voucher")
-                        .WithMany()
-                        .HasForeignKey("VoucherID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Students")
+                        .HasForeignKey("VoucherID");
 
                     b.Navigation("Role");
 
@@ -494,13 +598,13 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Teacher", b =>
                 {
                     b.HasOne("SignInSystem.Entity.Role", "Role")
-                        .WithMany()
+                        .WithMany("Teachers")
                         .HasForeignKey("RoleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SignInSystem.Entity.Subject", "Subject")
-                        .WithMany()
+                        .WithMany("Teachers")
                         .HasForeignKey("SubjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -513,15 +617,15 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Tuition", b =>
                 {
                     b.HasOne("SignInSystem.Entity.Class", "Class")
-                        .WithMany()
+                        .WithMany("Tuitions")
                         .HasForeignKey("ClassID");
 
                     b.HasOne("SignInSystem.Entity.Student", "Student")
-                        .WithMany()
+                        .WithMany("Tuitions")
                         .HasForeignKey("StudentID");
 
                     b.HasOne("SignInSystem.Entity.TuitionType", "TuitionType")
-                        .WithMany()
+                        .WithMany("Tuitions")
                         .HasForeignKey("TuitionTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -531,6 +635,59 @@ namespace SignInSystem.Migrations
                     b.Navigation("Student");
 
                     b.Navigation("TuitionType");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.Class", b =>
+                {
+                    b.Navigation("Tuitions");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.Role", b =>
+                {
+                    b.Navigation("Accounts");
+
+                    b.Navigation("Students");
+
+                    b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.ScoreType", b =>
+                {
+                    b.Navigation("Scores");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.Semester", b =>
+                {
+                    b.Navigation("Classes");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.Student", b =>
+                {
+                    b.Navigation("Scores");
+
+                    b.Navigation("Tuitions");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.Subject", b =>
+                {
+                    b.Navigation("Classes");
+
+                    b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.Teacher", b =>
+                {
+                    b.Navigation("Schedules");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.TuitionType", b =>
+                {
+                    b.Navigation("Tuitions");
+                });
+
+            modelBuilder.Entity("SignInSystem.Entity.Voucher", b =>
+                {
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

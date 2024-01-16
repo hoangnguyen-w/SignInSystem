@@ -22,5 +22,10 @@ namespace SignInSystem.Entity
         [ForeignKey("Role")]
         public int RoleID { get; set; }
         public virtual Role Role { get; set; }
+
+        //JWT authentication
+        public string RefreshToken { get; set; }
+        public DateTime TokenCreated { get; set; }
+        public DateTime TokenExpires { get; set; }
     }
 }

@@ -98,7 +98,10 @@ namespace SignInSystem.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false)
+                    RoleID = table.Column<int>(type: "int", nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TokenCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TokenExpires = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -151,11 +154,14 @@ namespace SignInSystem.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TaxCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SubjectID = table.Column<int>(type: "int", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false)
+                    RoleID = table.Column<int>(type: "int", nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TokenCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TokenExpires = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -184,12 +190,15 @@ namespace SignInSystem.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ParentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    VoucherID = table.Column<int>(type: "int", nullable: false),
-                    RoleID = table.Column<int>(type: "int", nullable: false)
+                    VoucherID = table.Column<int>(type: "int", nullable: true),
+                    RoleID = table.Column<int>(type: "int", nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TokenCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TokenExpires = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,8 +213,7 @@ namespace SignInSystem.Migrations
                         name: "FK_Students_Vouchers_VoucherID",
                         column: x => x.VoucherID,
                         principalTable: "Vouchers",
-                        principalColumn: "VoucherID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "VoucherID");
                 });
 
             migrationBuilder.CreateTable(
@@ -302,6 +310,36 @@ namespace SignInSystem.Migrations
                     { 3, "Teacher" },
                     { 4, "Student" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Subjects",
+                columns: new[] { "SubjectID", "SubjectName", "Time" },
+                values: new object[,]
+                {
+                    { 1, "Cờ Tướng - Cờ Vua", new TimeSpan(0, 1, 30, 0, 0) },
+                    { 2, "Đàn Piano", new TimeSpan(0, 1, 30, 0, 0) },
+                    { 3, "Cầu lông", new TimeSpan(0, 1, 30, 0, 0) },
+                    { 4, "Bơi lội", new TimeSpan(0, 1, 30, 0, 0) },
+                    { 5, "Tiếng Anh", new TimeSpan(0, 1, 30, 0, 0) },
+                    { 6, "Công Nghệ Thông Tin", new TimeSpan(0, 1, 30, 0, 0) },
+                    { 7, "Tiếng Nhật", new TimeSpan(0, 1, 30, 0, 0) },
+                    { 8, "Âm Nhạc", new TimeSpan(0, 1, 30, 0, 0) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Accounts",
+                columns: new[] { "AccountID", "Email", "Password", "RefreshToken", "RoleID", "TokenCreated", "TokenExpires" },
+                values: new object[] { 1, "Admin", "123", null, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "Students",
+                columns: new[] { "StudentID", "Address", "DateOfBirth", "Email", "Gender", "Image", "ParentName", "Password", "Phone", "RefreshToken", "RoleID", "StudentName", "TokenCreated", "TokenExpires", "VoucherID" },
+                values: new object[] { "STU-01", null, null, "student", null, null, null, "123", null, null, 1, "Test Student", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null });
+
+            migrationBuilder.InsertData(
+                table: "Teachers",
+                columns: new[] { "TeacherID", "Address", "DateOfBirth", "Email", "Image", "Password", "Phone", "RefreshToken", "RoleID", "SubjectID", "TaxCode", "TeacherName", "TokenCreated", "TokenExpires" },
+                values: new object[] { "TEA-01", null, null, "teacher", null, "123", null, null, 1, 2, "VND-TEA-01", "Test Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Accounts_RoleID",

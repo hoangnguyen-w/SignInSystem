@@ -21,7 +21,7 @@ namespace SignInSystem.Entity
 
         public string Address { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         [MaxLength(20)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Input your Number")]
@@ -43,5 +43,11 @@ namespace SignInSystem.Entity
 
         [JsonIgnore]
         public virtual ICollection<Schedule> Schedules { get; set; }
+
+
+        //JWT authentication
+        public string RefreshToken { get; set; }
+        public DateTime TokenCreated { get; set; }
+        public DateTime TokenExpires { get; set; }
     }
 }

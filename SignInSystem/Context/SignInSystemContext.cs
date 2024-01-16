@@ -43,6 +43,8 @@ namespace SignInSystem.Context
             this.SeedRoles(modelBuilder);
             this.SeedSubject(modelBuilder);
             this.SeedAccount(modelBuilder);
+            this.SeedTeacher(modelBuilder);
+            this.SeedStudent(modelBuilder);
         }
 
         private void SeedRoles(ModelBuilder builder)
@@ -79,6 +81,7 @@ namespace SignInSystem.Context
                 RoleID = 1
             });
         }
+
         private void SeedSubject(ModelBuilder builder)
         {
             builder.Entity<Subject>().HasData(new Subject()
@@ -128,6 +131,30 @@ namespace SignInSystem.Context
                 SubjectID = 8,
                 SubjectName = "Âm Nhạc",
                 Time = TimeSpan.FromMinutes(90)
+            });
+        }
+        private void SeedTeacher(ModelBuilder builder)
+        {
+            builder.Entity<Teacher>().HasData(new Teacher()
+            {
+                TeacherID = "TEA-01",
+                TeacherName = "Test Teacher",
+                TaxCode = "VND-TEA-01",
+                Email = "teacher",
+                Password = "123",
+                RoleID = 3,
+                SubjectID = 2
+            });
+        }
+        private void SeedStudent(ModelBuilder builder)
+        {
+            builder.Entity<Student>().HasData(new Student()
+            {
+                StudentID = "STU-01",
+                StudentName = "Test Student",
+                Email = "student",
+                Password = "123",
+                RoleID = 4
             });
         }
     }
