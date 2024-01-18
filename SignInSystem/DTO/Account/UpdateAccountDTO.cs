@@ -10,6 +10,5 @@ namespace SignInSystem.DTO.Account
 
         public string Password { get; set; }
 
-
     }
 }

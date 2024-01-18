@@ -112,7 +112,7 @@ namespace SignInSystem.Controllers
         }
 
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> EditAccount(int id, RegisterAccountDTO accDTO)
+        public async Task<ActionResult> EditAccount(int id, UpdateAccountDTO accDTO)
         {
             try
             {
@@ -124,7 +124,24 @@ namespace SignInSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [HttpPut("ChangeRole/{id}")]
+        public async Task<ActionResult> ChangeRoleAccount(int id)
+        {
+            try
+            {
+                var list = await _accountService.FindIDToResult(id);
+                if (list == null)
+                {
+                    return NotFound();
+                }
+                await _accountService.ChangeRoleAccount(id);
+                return Ok(id);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteAccount(int id)
         {

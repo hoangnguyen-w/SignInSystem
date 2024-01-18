@@ -19,6 +19,8 @@ namespace SignInSystem.Interface
 
         Task EditAccount(int id, UpdateAccountDTO updateAccountDTO);
 
+        Task ChangeRoleAccount(int id);
+
         Task DeleteAccount(int id);
     }
 }

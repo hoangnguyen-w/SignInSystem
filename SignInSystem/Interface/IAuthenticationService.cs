@@ -7,7 +7,7 @@ namespace SignInSystem.Interface
     {
         Task<dynamic> CheckLogin(AuthenticationDTO account);
 
-        //Task<Account> CheckLogin(AuthenticationDTO account);
+        Task<dynamic> ForgotPassword(string email ,ForgotPasswordDTO account);
 
         string CreateTokenAccount(Account account);
 

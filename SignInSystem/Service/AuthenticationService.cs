@@ -171,5 +171,51 @@ namespace SignInSystem.Service
 
             return _account;
         }
+
+        public async Task<dynamic> ForgotPassword(string email, ForgotPasswordDTO account)
+        {
+            var acc = await _context.Accounts.FirstOrDefaultAsync(a => a.Email == email); 
+            
+            
+            if (acc != null)
+            {
+                acc.Password = account.NewPassword;
+
+                _context.Accounts.Update(acc);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                var stu = await _context.Students.FirstOrDefaultAsync(s => s.Email == email);
+
+                if (stu != null)
+                {
+                    stu.Password = account.NewPassword;
+
+                    _context.Students.Update(stu);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    var teacher = await _context.Teachers.FirstOrDefaultAsync(t => t.Email == email);
+
+                    if (teacher != null)
+                    {
+                        teacher.Password = account.NewPassword;
+
+                        _context.Teachers.Update(teacher);
+                        await _context.SaveChangesAsync();
+                    }
+
+                    else
+                    {
+                        throw new BadHttpRequestException("Email bạn không tồn tại trong hệ thống, vui lòng kiểm tra lại EMAIL!!!!");
+                    }
+                    return teacher;
+                }
+                return stu;
+            }
+            return acc;
+        }
     }
 }

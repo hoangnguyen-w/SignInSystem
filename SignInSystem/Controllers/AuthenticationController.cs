@@ -103,6 +103,20 @@ namespace SignInSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("ForgotPassword/{email}")]
+        public async Task<ActionResult> ForgotPassword(string email, ForgotPasswordDTO accDTO)
+        {
+            try
+            {
+                await _authenticationService.ForgotPassword(email, accDTO);
+                return Ok(accDTO);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpPost("logout"), Authorize(Roles = "Admin, Staff, Student, Teacher")]
         public ActionResult Logout(string token)
         {

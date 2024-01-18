@@ -13,7 +13,25 @@ namespace SignInSystem.Service
         public AccountService(SignInSystemContext context)
         {
             _context = context;
-        }   
+        }
+
+        public async Task ChangeRoleAccount(int id)
+        {
+            var search = _context.Accounts.FirstOrDefault(a => a.AccountID == id);
+
+            if(search.RoleID == 1)
+            {
+                search.RoleID = 2;
+                _context.Accounts.Update(search);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                search.RoleID = 1;
+                _context.Accounts.Update(search);
+                await _context.SaveChangesAsync();
+            }
+        }
 
         public async Task CreateAccount(RegisterAccountDTO registerAccountDTO)
         {
