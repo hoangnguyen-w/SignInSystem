@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SignInSystem.Context;
-using SignInSystem.DTO;
+using SignInSystem.DTO.Authentication;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
 using System.IdentityModel.Tokens.Jwt;
@@ -72,6 +72,7 @@ namespace SignInSystem.Service
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.PostalCode, account.AccountID + ""),
+                new Claim(ClaimTypes.Name, account.AccountName),
                 new Claim(ClaimTypes.Email, account.Email),
                 new Claim(ClaimTypes.Role, account.Role.RoleName)
             };
@@ -85,8 +86,7 @@ namespace SignInSystem.Service
                 expires: DateTime.Now.AddHours(1),
                 signingCredentials: cred
             );
-
-            // Chạy debug dòng 93 bị lỗi 
+ 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
             return jwt;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SignInSystem.DTO;
+using SignInSystem.DTO.Authentication;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
 #nullable disable
@@ -42,6 +42,7 @@ namespace SignInSystem.Controllers
                     TokenDTO dto = new TokenDTO();
 
                     dto.id = checklogin.AccountID + "";
+                    dto.name = checklogin.AccountName;
                     dto.Email = checklogin.Email;
                     dto.Token = token;
                     dto.Role = checklogin.Role.RoleName;

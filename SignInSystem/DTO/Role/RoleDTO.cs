@@ -1,5 +1,7 @@
 ﻿#nullable disable
-namespace SignInSystem.DTO
+using SignInSystem;
+
+namespace SignInSystem.DTO.Role
 {
     public class RoleDTO
     {

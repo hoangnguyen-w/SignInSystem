@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SignInSystem.DTO;
+using SignInSystem.DTO.Role;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
 #nullable disable

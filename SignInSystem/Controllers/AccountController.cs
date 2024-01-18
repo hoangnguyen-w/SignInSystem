@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SignInSystem.DTO;
+using SignInSystem.DTO.Account;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
 
@@ -8,7 +8,7 @@ namespace SignInSystem.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin, Staff")]
+    [Authorize(Roles = "Admin, Staff")]
     public class AccountController : Controller
     {
         private readonly IAccountService _accountService;

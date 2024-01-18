@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SignInSystem.Context;
-using SignInSystem.DTO;
+using SignInSystem.DTO.Account;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
 #nullable disable
-
 
 namespace SignInSystem.Service
 {
@@ -35,12 +34,13 @@ namespace SignInSystem.Service
             await _context.SaveChangesAsync();
         }
 
-        public async Task EditAccount(int id, RegisterAccountDTO registerAccountDTO)
+        public async Task EditAccount(int id, UpdateAccountDTO updateAccountDTO)
         {
             var search = _context.Accounts.FirstOrDefault(a => a.AccountID == id);
 
-            search.Email = registerAccountDTO.Email;
-            search.Password = registerAccountDTO.Password;
+            search.AccountName = updateAccountDTO.AccountName;
+            search.Email = updateAccountDTO.Email;
+            search.Password = updateAccountDTO.Password;
 
             _context.Accounts.Update(search);
             await _context.SaveChangesAsync();

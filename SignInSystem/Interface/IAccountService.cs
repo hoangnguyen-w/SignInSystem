@@ -1,4 +1,4 @@
-﻿using SignInSystem.DTO;
+﻿using SignInSystem.DTO.Account;
 using SignInSystem.Entity;
 
 namespace SignInSystem.Interface
@@ -17,7 +17,7 @@ namespace SignInSystem.Interface
 
         Task CreateAccount(RegisterAccountDTO registerAccountDTO);
 
-        Task EditAccount(int id, RegisterAccountDTO registerAccountDTO);
+        Task EditAccount(int id, UpdateAccountDTO updateAccountDTO);
 
         Task DeleteAccount(int id);
     }

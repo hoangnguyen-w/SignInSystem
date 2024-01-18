@@ -1,4 +1,4 @@
-﻿using SignInSystem.DTO;
+﻿using SignInSystem.DTO.Authentication;
 using SignInSystem.Entity;
 
 namespace SignInSystem.Interface

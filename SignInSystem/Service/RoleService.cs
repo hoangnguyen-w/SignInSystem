@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SignInSystem.Context;
-using SignInSystem.DTO;
+using SignInSystem.DTO.Role;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
 #nullable disable

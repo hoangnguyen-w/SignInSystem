@@ -10,6 +10,8 @@ namespace SignInSystem.Entity
     {
         [Key]
         public int AccountID { get;set; }
+        
+        public string AccountName { get; set; }
 
         [Required]
         public string Email { get;set; }

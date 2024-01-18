@@ -8,17 +8,17 @@ namespace SignInSystem.Entity
         [Key]
         public int TuitionID { get; set; }
 
-        public float TotalPrice { get; set; }
+        public float? TotalPrice { get; set; }
 
-        public int StatusTuition { get; set; }
+        public int? StatusTuition { get; set; }
 
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
 
 
         //Khóa ngoại
         [ForeignKey("TuitionType")]
-        public int TuitionTypeID { get; set; }
+        public int? TuitionTypeID { get; set; }
         public virtual TuitionType TuitionType { get; set; }
 
         [ForeignKey("Class")]
