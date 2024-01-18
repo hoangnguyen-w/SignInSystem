@@ -9,18 +9,20 @@ namespace SignInSystem.Interface
 
         Task<List<Student>> GetAllNewStudent();
 
-        Task<List<Student>> GetStudentByID(int id);
+        Task<List<Student>> GetStudentByID(string id);
 
         Task<List<Student>> GetStudentByEmail(string email);
 
-        Task<List<Student>> GetStudentByName(string email);
+        Task<List<Student>> GetStudentByName(string name);
 
-        Task<Student> FindIDToResult(int id);
+        Task<Student> FindIDToResult(string id);
 
-        Task CreateAccount(RegisterStudentDTO registerStudentDTO);
+        Task<List<Student>> SearchStudentNameEmailID(string search);
 
-        Task EditAccount(int id, UpdateStudentDTO updateStudentDTO);
+        Task CreateStudent(RegisterStudentDTO registerStudentDTO);
 
-        Task DeleteAccount(int id);
+        Task EditStudent(string id, UpdateStudentDTO updateStudentDTO);
+
+        Task DeleteStudent(string id);
     }
 }

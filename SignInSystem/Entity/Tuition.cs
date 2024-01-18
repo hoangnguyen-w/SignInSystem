@@ -10,7 +10,7 @@ namespace SignInSystem.Entity
 
         public float? TotalPrice { get; set; }
 
-        public int? StatusTuition { get; set; }
+        public bool? StatusTuition { get; set; }
 
         public string? Note { get; set; }
 

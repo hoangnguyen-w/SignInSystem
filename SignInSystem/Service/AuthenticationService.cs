@@ -175,8 +175,7 @@ namespace SignInSystem.Service
         public async Task<dynamic> ForgotPassword(string email, ForgotPasswordDTO account)
         {
             var acc = await _context.Accounts.FirstOrDefaultAsync(a => a.Email == email); 
-            
-            
+                 
             if (acc != null)
             {
                 acc.Password = account.NewPassword;

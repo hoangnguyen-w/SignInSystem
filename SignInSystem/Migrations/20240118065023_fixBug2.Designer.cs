@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignInSystem.Context;
 
@@ -11,9 +12,10 @@ using SignInSystem.Context;
 namespace SignInSystem.Migrations
 {
     [DbContext(typeof(SignInSystemContext))]
-    partial class SignInSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20240118065023_fixBug2")]
+    partial class fixBug2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,10 +49,10 @@ namespace SignInSystem.Migrations
                     b.Property<int>("RoleID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("TokenCreated")
+                    b.Property<DateTime>("TokenCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("TokenExpires")
+                    b.Property<DateTime>("TokenExpires")
                         .HasColumnType("datetime2");
 
                     b.HasKey("AccountID");
@@ -65,7 +67,9 @@ namespace SignInSystem.Migrations
                             AccountID = 1,
                             Email = "Admin",
                             Password = "123",
-                            RoleID = 1
+                            RoleID = 1,
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -285,10 +289,10 @@ namespace SignInSystem.Migrations
                     b.Property<string>("StudentName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("TokenCreated")
+                    b.Property<DateTime>("TokenCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("TokenExpires")
+                    b.Property<DateTime>("TokenExpires")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("VoucherID")
@@ -310,7 +314,9 @@ namespace SignInSystem.Migrations
                             NewStudent = false,
                             Password = "123",
                             RoleID = 4,
-                            StudentName = "Test Student"
+                            StudentName = "Test Student",
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -424,10 +430,10 @@ namespace SignInSystem.Migrations
                     b.Property<string>("TeacherName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("TokenCreated")
+                    b.Property<DateTime>("TokenCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("TokenExpires")
+                    b.Property<DateTime>("TokenExpires")
                         .HasColumnType("datetime2");
 
                     b.HasKey("TeacherID");
@@ -447,7 +453,9 @@ namespace SignInSystem.Migrations
                             RoleID = 3,
                             SubjectID = 2,
                             TaxCode = "VND-TEA-01",
-                            TeacherName = "Test Teacher"
+                            TeacherName = "Test Teacher",
+                            TokenCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TokenExpires = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -465,8 +473,8 @@ namespace SignInSystem.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("StatusTuition")
-                        .HasColumnType("bit");
+                    b.Property<int?>("StatusTuition")
+                        .HasColumnType("int");
 
                     b.Property<string>("StudentID")
                         .HasColumnType("nvarchar(450)");

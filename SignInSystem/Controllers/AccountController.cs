@@ -26,7 +26,7 @@ namespace SignInSystem.Controllers
 
                 if (list == null)
                 {
-                    return NotFound();
+                    return NotFound("Server bị sập rồi");
                 }
 
                 return Ok(list);
@@ -46,7 +46,7 @@ namespace SignInSystem.Controllers
 
                 if (list == null)
                 {
-                    return NotFound();
+                    return NotFound("Email không tồn tại, vui lòng kiểm tra lại Email!!!!");
                 }
 
                 return Ok(list);
@@ -66,7 +66,7 @@ namespace SignInSystem.Controllers
 
                 if (list == null)
                 {
-                    return NotFound();
+                    return NotFound("Role có dữ liệu !!!!");
                 }
 
                 return Ok(list);
@@ -86,7 +86,7 @@ namespace SignInSystem.Controllers
 
                 if (list == null)
                 {
-                    return NotFound();
+                    return NotFound("AccountID không tồn tại, vui lòng kiểm tra lại AccountID!!!!");
                 }
 
                 return Ok(list);
@@ -116,6 +116,11 @@ namespace SignInSystem.Controllers
         {
             try
             {
+                var list = await _accountService.FindIDToResult(id);
+                if (list == null)
+                {
+                    return NotFound("AccountID không tồn tại, vui lòng kiểm tra lại AccountID!!!!");
+                }
                 await _accountService.EditAccount(id, accDTO);
                 return Ok(accDTO);
             }
@@ -132,7 +137,7 @@ namespace SignInSystem.Controllers
                 var list = await _accountService.FindIDToResult(id);
                 if (list == null)
                 {
-                    return NotFound();
+                    return NotFound("AccountID không tồn tại, vui lòng kiểm tra lại AccountID!!!!");
                 }
                 await _accountService.ChangeRoleAccount(id);
                 return Ok(id);
@@ -150,7 +155,7 @@ namespace SignInSystem.Controllers
                 var list = await _accountService.FindIDToResult(id);
                 if (list == null)
                 {
-                    return NotFound();
+                    return NotFound("AccountID không tồn tại, vui lòng kiểm tra lại AccountID!!!!");
                 }
 
                 await _accountService.DeleteAccount(id);

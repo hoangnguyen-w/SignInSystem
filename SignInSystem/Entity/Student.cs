@@ -31,6 +31,8 @@ namespace SignInSystem.Entity
 
         public string Gender { get; set; }
 
+        public bool NewStudent { get; set; }
+
 
         //Khóa ngoại
         [ForeignKey("Voucher")]
@@ -45,13 +47,13 @@ namespace SignInSystem.Entity
         [JsonIgnore]
         public virtual ICollection<Score> Scores { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual ICollection<Tuition> Tuitions { get; set; }
 
 
         //JWT authentication
         public string RefreshToken { get; set; }
-        public DateTime TokenCreated { get; set; }
-        public DateTime TokenExpires { get; set; }
+        public DateTime? TokenCreated { get; set; }
+        public DateTime? TokenExpires { get; set; }
     }
 }

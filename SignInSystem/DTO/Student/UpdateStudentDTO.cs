@@ -13,8 +13,6 @@ namespace SignInSystem.DTO.Student
 
         public string Gender { get; set; }
 
-        public string Email { get; set; }
-
         [MaxLength(20)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Input your Number")]
         public string Phone { get; set; }
@@ -24,5 +22,7 @@ namespace SignInSystem.DTO.Student
         public string ParentName { get; set; }
 
         public string Password { get; set; }
+
+        public string Image { get; set; }
     }
 }

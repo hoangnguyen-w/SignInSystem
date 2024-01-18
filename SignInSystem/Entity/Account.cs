@@ -27,7 +27,7 @@ namespace SignInSystem.Entity
 
         //JWT authentication
         public string RefreshToken { get; set; }
-        public DateTime TokenCreated { get; set; }
-        public DateTime TokenExpires { get; set; }
+        public DateTime? TokenCreated { get; set; }
+        public DateTime? TokenExpires { get; set; }
     }
 }
