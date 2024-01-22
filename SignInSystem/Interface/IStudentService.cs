@@ -17,11 +17,17 @@ namespace SignInSystem.Interface
 
         Task<Student> FindIDToResult(string id);
 
+        Task<Class> FindClassID(string id);
+
         Task<List<Student>> SearchStudentNameEmailID(string search);
 
         Task CreateStudent(RegisterStudentDTO registerStudentDTO);
 
+        Task CreateStudenInClass(string id, string classID);
+
         Task EditStudent(string id, UpdateStudentDTO updateStudentDTO);
+
+        Task DeleteStudentInClass(string id, string classID);
 
         Task DeleteStudent(string id);
     }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SignInSystem.DTO.Student;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
@@ -150,6 +149,36 @@ namespace SignInSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpPost("CreateStudentInClass")]
+        public async Task<ActionResult> CreateStudentInClass(string studentID, string classID)
+        {
+            try
+            {
+                var checkStudent = await _studentService.FindIDToResult(studentID);
+                var checkCLass = await _studentService.FindClassID(classID);
+
+                if (checkStudent == null)
+                {
+                    return NotFound("StudentID không tồn tại, vui lòng kiểm tra lại StudentID!!!!");
+                }
+                else
+                {
+                    if (checkCLass == null)
+                    {
+                        return NotFound("ClassID không tồn tại, vui lòng kiểm tra lại ClassID!!!!");
+                    }
+                    else
+                    {
+                        await _studentService.CreateStudenInClass(studentID, classID);
+                        return Ok();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> EditStudent(string id, UpdateStudentDTO updateStudentDTO)
@@ -170,7 +199,21 @@ namespace SignInSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpDelete("DeleteStudentInClass")]
+        public async Task<ActionResult> DeleteStudentInClass(string studentID, string classID)
+        {
+            try
+            {
 
+                await _studentService.DeleteStudentInClass(studentID, classID);
+                return Ok();
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteStudent(string id)
         {
@@ -183,7 +226,6 @@ namespace SignInSystem.Controllers
                 }
 
                 await _studentService.DeleteStudent(id);
-
                 return Ok(list);
             }
             catch (Exception e)

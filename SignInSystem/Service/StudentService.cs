@@ -15,6 +15,35 @@ namespace SignInSystem.Service
             _context = context;
         }
 
+        public async Task CreateStudenInClass(string id, string classID)
+        {
+            Tuition tuition = new Tuition();
+            var stu = _context.Students.FirstOrDefault(a => a.StudentID.Equals(id));
+            var check = _context.Classes.FirstOrDefault(a => a.ClassID.Equals(classID));
+
+            if (stu == null)
+            {
+                throw new BadHttpRequestException("StudentID không tồn tại, vui lòng kiểm tra lại StudentID!!!!");
+            }
+            else
+            {
+                if (check == null)
+                {
+                    throw new BadHttpRequestException("ClassID không tồn tại, vui lòng kiểm tra lại ClassID!!!!");
+                }
+                else
+                {
+                    tuition.ClassID = classID;
+                    tuition.StudentID = id;
+                    tuition.TotalPrice = check.Price;
+                    tuition.StatusTuition = false;
+                    tuition.Note = "Học sinh mới, mới đăng ký và chưa đóng học phí";
+
+                    _context.Tuitions.Add(tuition);
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
 
         public async Task CreateStudent(RegisterStudentDTO registerStudentDTO)
         {
@@ -51,16 +80,10 @@ namespace SignInSystem.Service
                 tuition.StudentID = registerStudentDTO.StudentID;
 
                 var searchClass = await _context.Classes.FindAsync(registerStudentDTO.ClassID);
-                var searchVoucher = await _context.Students.FindAsync(stu.VoucherID);
+                //var searchVoucher = await _context.Students.FindAsync(stu.VoucherID);
+                //var voucher = _context.Vouchers.FirstOrDefault(a => a.VoucherID == stu.VoucherID);
 
-                if (searchVoucher == null)
-                {
-                    tuition.TotalPrice = searchClass.Price;
-                }
-                else
-                {
-                    tuition.TotalPrice = searchClass.Price - (searchClass.Price * (searchVoucher.Voucher.PercentDiscount) / 100);
-                }
+                tuition.TotalPrice = searchClass.Price;
                 tuition.StatusTuition = false;
                 tuition.Note = "Học sinh mới, mới đăng ký và chưa đóng học phí";
 
@@ -74,9 +97,24 @@ namespace SignInSystem.Service
             var search = _context.Students.FirstOrDefault(a => a.StudentID.Equals(id));
             var searchTuitions = _context.Tuitions.FirstOrDefault(a => a.StudentID.Equals(id));
 
-            _context.Tuitions.Remove(searchTuitions);   
-            _context.Remove(search);
+            _context.Tuitions.Remove(searchTuitions);
+            _context.Students.Remove(search);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteStudentInClass(string id, string classID)
+        {
+            var search = _context.Tuitions.FirstOrDefault(a => a.StudentID.Equals(id));
+            var check = _context.Tuitions.FirstOrDefault(a => a.ClassID.Equals(classID));
+            if (search == null || check == null)
+            {
+                throw new BadHttpRequestException("Học sinh này không có trong lớp " + classID + " , bạn vui lòng kiểm tra lại !!!!");
+            }
+            else
+            {
+                _context.Tuitions.Remove(check);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task EditStudent(string id, UpdateStudentDTO updateStudentDTO)
@@ -100,6 +138,12 @@ namespace SignInSystem.Service
                 _context.Students.Update(stu);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<Class> FindClassID(string id)
+        {
+            var search = await _context.Classes.FindAsync(id);
+            return search;
         }
 
         public async Task<Student> FindIDToResult(string id)
