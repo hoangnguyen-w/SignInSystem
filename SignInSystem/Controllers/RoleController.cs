@@ -55,6 +55,19 @@ namespace SignInSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet("GetByRoleName/{name}")]
+        public async Task<ActionResult<Role>> GetByName(string name)
+        {
+            try
+            {
+                var list = await _roleService.GetRoleByName(name);
+                return Ok(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         [HttpPost("Create")]
         public async Task<ActionResult> CreateRole(RoleDTO roleDTO)

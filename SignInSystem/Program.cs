@@ -66,6 +66,7 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<ITuitionTypeService, TuitionTypeService>();
 
 var app = builder.Build();
 

@@ -129,6 +129,7 @@ namespace SignInSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
+
         [HttpPut("ChangeRole/{id}")]
         public async Task<ActionResult> ChangeRoleAccount(int id)
         {
@@ -147,6 +148,7 @@ namespace SignInSystem.Controllers
                 return BadRequest(e.Message);
             }
         }
+
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteAccount(int id)
         {
