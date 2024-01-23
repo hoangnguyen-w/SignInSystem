@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SignInSystem.DTO.TuitionType;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
@@ -7,7 +8,7 @@ namespace SignInSystem.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Staff")]
     public class TuitionTypeController : Controller
     {
         private readonly ITuitionTypeService _tuitionTypeService;

@@ -1,28 +1,28 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SignInSystem.DTO.Role;
+using SignInSystem.DTO.Semester;
 using SignInSystem.Entity;
 using SignInSystem.Interface;
-#nullable disable
+
 namespace SignInSystem.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
-    public class RoleController : Controller
+    [Authorize(Roles = "Admin, Staff")]
+    public class SemesterController : Controller
     {
-        private readonly IRoleService _roleService;
-        public RoleController(IRoleService roleService)
+        private readonly ISemesterService _semesterService;
+        public SemesterController(ISemesterService semesterService)
         {
-            _roleService = roleService;
+            _semesterService = semesterService;
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<List<Role>>> GetAll()
+        public async Task<ActionResult<List<Semester>>> GetAll()
         {
             try
             {
-                var list = await _roleService.GetAll();
+                var list = await _semesterService.GetAll();
 
                 if (list == null)
                 {
@@ -37,16 +37,16 @@ namespace SignInSystem.Controllers
             }
         }
 
-        [HttpGet("GetByRoleID/{id}")]
-        public async Task<ActionResult<Role>> GetByID(int id)
+        [HttpGet("GetBySemesterID/{id}")]
+        public async Task<ActionResult<Semester>> GetByID(int id)
         {
             try
             {
-                var list = await _roleService.GetRoleByID(id);
+                var list = await _semesterService.GetSemesterByID(id);
 
                 if (list == null)
                 {
-                    return NotFound("RoleID không tồn tại, vui lòng kiểm tra lại RoleID!!!!");
+                    return NotFound("SemesterID không tồn tại, vui lòng kiểm tra lại SemesterID!!!!");
                 }
 
                 return Ok(list);
@@ -57,12 +57,12 @@ namespace SignInSystem.Controllers
             }
         }
 
-        [HttpGet("GetByRoleName/{name}")]
-        public async Task<ActionResult<Role>> GetByName(string name)
+        [HttpGet("GetBySemesterName/{name}")]
+        public async Task<ActionResult<Semester>> GetByName(string name)
         {
             try
             {
-                var list = await _roleService.GetRoleByName(name);
+                var list = await _semesterService.GetSemesterByName(name);
                 return Ok(list);
             }
             catch (Exception e)
@@ -72,12 +72,12 @@ namespace SignInSystem.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult> CreateRole(RoleDTO roleDTO)
+        public async Task<ActionResult> CreateSemester(SemesterDTO semesterDTO)
         {
             try
             {
-                await _roleService.CreateRole(roleDTO);
-                return Ok(roleDTO);
+                await _semesterService.CreateSemester(semesterDTO);
+                return Ok(semesterDTO);
             }
             catch (Exception e)
             {
@@ -86,17 +86,17 @@ namespace SignInSystem.Controllers
         }
 
         [HttpPut("Update/{id}")]
-        public async Task<ActionResult> EditRole(int id, RoleDTO roleDTO)
+        public async Task<ActionResult> EditSemester(int id, SemesterDTO semesterDTO)
         {
             try
             {
-                var list = await _roleService.FindIDToResult(id);
+                var list = await _semesterService.FindIDToResult(id);
                 if (list == null)
                 {
-                    return NotFound("RoleID không tồn tại, vui lòng kiểm tra lại RoleID!!!!");
+                    return NotFound("SemesterID không tồn tại, vui lòng kiểm tra lại SemesterID!!!!");
                 }
-                await _roleService.EditRole(id, roleDTO);
-                return Ok(roleDTO);
+                await _semesterService.EditSemester(id, semesterDTO);
+                return Ok(semesterDTO);
             }
             catch (Exception e)
             {
@@ -105,17 +105,17 @@ namespace SignInSystem.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
-        public async Task<ActionResult> DeleteRole(int id)
+        public async Task<ActionResult> DeleteSemester(int id)
         {
             try
             {
-                var list = await _roleService.FindIDToResult(id);
+                var list = await _semesterService.FindIDToResult(id);
                 if (list == null)
                 {
-                    return NotFound("RoleID không tồn tại, vui lòng kiểm tra lại RoleID!!!!");
+                    return NotFound("SemesterID không tồn tại, vui lòng kiểm tra lại SemesterID!!!!");
                 }
 
-                await _roleService.DeleteRole(id);
+                await _semesterService.DeleteSemester(id);
 
                 return Ok(list);
             }
