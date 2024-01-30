@@ -104,6 +104,26 @@ namespace SignInSystem.Controllers
             }
         }
 
+        [HttpPut("ChangStatusVoucher/{id}")]
+        public async Task<ActionResult> ChangStatusVoucher(int id)
+        {
+            try
+            {
+                var list = await _voucherService.FindIDToResult(id);
+                if (list == null)
+                {
+                    return NotFound("VoucherID không tồn tại, vui lòng kiểm tra lại VoucherID!!!!");
+                }
+                await _voucherService.ChangeStatusVoucher(id);
+                return Ok(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
         [HttpDelete("Delete/{id}")]
         public async Task<ActionResult> DeleteVoucher(int id)
         {

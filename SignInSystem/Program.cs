@@ -70,6 +70,7 @@ builder.Services.AddScoped<ITuitionTypeService, TuitionTypeService>();
 builder.Services.AddScoped<ISemesterService, SemesterService>();
 builder.Services.AddScoped<IScoreTypeService, ScoreTypeService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
+builder.Services.AddScoped<ITuitionService, TuitionService>();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 #nullable disable
 namespace SignInSystem.Entity
 {
@@ -19,14 +20,17 @@ namespace SignInSystem.Entity
         //Khóa ngoại
         [ForeignKey("TuitionType")]
         public int? TuitionTypeID { get; set; }
+        [JsonIgnore]
         public virtual TuitionType TuitionType { get; set; }
 
         [ForeignKey("Class")]
         public string ClassID { get; set; }
+        [JsonIgnore]
         public virtual Class Class { get; set; }
 
         [ForeignKey("Student")]
         public string StudentID { get; set; }
+        [JsonIgnore]
         public virtual Student Student { get; set; }
     }
 }

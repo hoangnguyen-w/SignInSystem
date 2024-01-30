@@ -12,6 +12,8 @@ namespace SignInSystem.Entity
 
         public int PercentDiscount { get; set; }
 
+        public bool StatusVoucher { get; set; }
+
 
         [JsonIgnore]
         public virtual ICollection<Student> Students { get; set; }

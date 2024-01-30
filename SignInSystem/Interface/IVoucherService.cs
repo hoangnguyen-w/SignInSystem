@@ -17,6 +17,8 @@ namespace SignInSystem.Interface
 
         Task EditVoucher(int id, VoucherDTO voucherDTO);
 
+        Task ChangeStatusVoucher(int id);
+
         Task DeleteVoucher(int id);
     }
 }

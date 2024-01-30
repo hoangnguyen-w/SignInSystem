@@ -20,6 +20,7 @@ namespace SignInSystem.Service
             Voucher voucher = new Voucher();
             voucher.VoucherName = voucherDTO.VoucherName;
             voucher.PercentDiscount = voucherDTO.PercentDiscount;
+            voucher.StatusVoucher = true;
 
             _context.Vouchers.Add(voucher);
             await _context.SaveChangesAsync();
@@ -39,6 +40,23 @@ namespace SignInSystem.Service
 
             list.VoucherName = voucherDTO.VoucherName;
             list.PercentDiscount = voucherDTO.PercentDiscount;
+
+            _context.Vouchers.Update(list);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangeStatusVoucher(int id)
+        {
+            var list = _context.Vouchers.FirstOrDefault(v => v.VoucherID == id);
+
+            if (list.StatusVoucher)
+            {
+                list.StatusVoucher = false;
+            }
+            else
+            {
+                list.StatusVoucher = true;
+            }
 
             _context.Vouchers.Update(list);
             await _context.SaveChangesAsync();
