@@ -33,14 +33,21 @@ namespace SignInSystem.Service
                 }
                 else
                 {
-                    tuition.ClassID = classID;
-                    tuition.StudentID = id;
-                    tuition.TotalPrice = check.Price;
-                    tuition.StatusTuition = false;
-                    tuition.Note = "Học sinh mới, mới đăng ký và chưa đóng học phí";
+                    if (check.StatusClass != 1)
+                    {
+                        throw new BadHttpRequestException("Lớp học này đã kết thúc, bạn vui lòng đăng ký lớp khác !!!!");
+                    }
+                    else
+                    {
+                        tuition.ClassID = classID;
+                        tuition.StudentID = id;
+                        tuition.TotalPrice = check.Price;
+                        tuition.StatusTuition = false;
+                        tuition.Note = "Học sinh mới, mới đăng ký và chưa đóng học phí";
 
-                    _context.Tuitions.Add(tuition);
-                    await _context.SaveChangesAsync();
+                        _context.Tuitions.Add(tuition);
+                        await _context.SaveChangesAsync();
+                    }            
                 }
             }
         }
@@ -80,15 +87,23 @@ namespace SignInSystem.Service
                 tuition.StudentID = registerStudentDTO.StudentID;
 
                 var searchClass = await _context.Classes.FindAsync(registerStudentDTO.ClassID);
-                //var searchVoucher = await _context.Students.FindAsync(stu.VoucherID);
-                //var voucher = _context.Vouchers.FirstOrDefault(a => a.VoucherID == stu.VoucherID);
 
-                tuition.TotalPrice = searchClass.Price;
-                tuition.StatusTuition = false;
-                tuition.Note = "Học sinh mới, mới đăng ký và chưa đóng học phí";
+                if(searchClass.StatusClass != 1)
+                {
+                    throw new BadHttpRequestException("Lớp học này đã kết thúc, bạn vui lòng đăng ký lớp khác !!!!");
+                }
+                else
+                {
+                    //var searchVoucher = await _context.Students.FindAsync(stu.VoucherID);
+                    //var voucher = _context.Vouchers.FirstOrDefault(a => a.VoucherID == stu.VoucherID);
 
-                _context.Tuitions.Add(tuition);
-                await _context.SaveChangesAsync();
+                    tuition.TotalPrice = searchClass.Price;
+                    tuition.StatusTuition = false;
+                    tuition.Note = "Học sinh mới, mới đăng ký và chưa đóng học phí";
+
+                    _context.Tuitions.Add(tuition);
+                    await _context.SaveChangesAsync();
+                }
             }
         }
 

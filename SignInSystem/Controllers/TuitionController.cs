@@ -8,8 +8,7 @@ namespace SignInSystem.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin, Staff")]
-    //Hàm này chưa test
+    [Authorize(Roles = "Admin, Staff")]
     public class TuitionController : Controller
     {
         private readonly ITuitionService _tuitionService;
