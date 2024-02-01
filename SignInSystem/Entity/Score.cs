@@ -20,5 +20,9 @@ namespace SignInSystem.Entity
         [ForeignKey("ScoreType")]
         public int ScoreTypeID { get; set; }
         public virtual ScoreType ScoreType { get; set; }
+
+        [ForeignKey("Subject")]
+        public int SubjectID { get; set; }
+        public virtual Subject Subject { get; set; }
     }
 }

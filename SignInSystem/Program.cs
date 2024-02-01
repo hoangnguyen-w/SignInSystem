@@ -78,7 +78,7 @@ builder.Services.AddScoped<IVoucherService, VoucherService>();
 builder.Services.AddScoped<ITuitionService, TuitionService>();
 builder.Services.AddScoped<ISubjectService, SubjectService>();
 builder.Services.AddScoped<IClassService, ClassService>();
-
+builder.Services.AddScoped<IScoreService, ScoreService>();
 
 var app = builder.Build();
 
