@@ -8,7 +8,7 @@ namespace SignInSystem.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin, Staff, Teacher")]
+    [Authorize(Roles = "Admin, Staff, Teacher")]
     public class ScoreController : Controller
     {
         private readonly IScoreService _scoreService;

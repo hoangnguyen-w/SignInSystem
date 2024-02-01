@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignInSystem.Context;
 
@@ -11,9 +12,10 @@ using SignInSystem.Context;
 namespace SignInSystem.Migrations
 {
     [DbContext(typeof(SignInSystemContext))]
-    partial class SignInSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20240201152245_AddScheduleStudent")]
+    partial class AddScheduleStudent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,10 +154,10 @@ namespace SignInSystem.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleStudentID"), 1L, 1);
 
-                    b.Property<DateTime?>("EndDay")
+                    b.Property<DateTime>("EndDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan?>("EndTime")
+                    b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
 
                     b.Property<string>("Room")
@@ -164,10 +166,10 @@ namespace SignInSystem.Migrations
                     b.Property<string>("SchoolDay")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("StartDay")
+                    b.Property<DateTime>("StartDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan?>("StartTime")
+                    b.Property<TimeSpan>("StartTime")
                         .HasColumnType("time");
 
                     b.Property<string>("StudentID")

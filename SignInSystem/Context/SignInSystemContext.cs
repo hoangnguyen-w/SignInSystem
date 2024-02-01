@@ -11,7 +11,9 @@ namespace SignInSystem.Context
 
         public DbSet<Role> Roles { get; set; }
 
-        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<ScheduleTeacher> ScheduleTeachers { get; set; }
+
+        public DbSet<ScheduleStudent> ScheduleStudents { get; set; }
 
         public DbSet<Score> Scores { get; set; }
 

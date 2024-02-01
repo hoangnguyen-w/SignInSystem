@@ -42,7 +42,7 @@ namespace SignInSystem.Entity
 
 
         [JsonIgnore]
-        public virtual ICollection<Schedule> Schedules { get; set; }
+        public virtual ICollection<ScheduleTeacher> Schedules { get; set; }
 
 
         //JWT authentication
