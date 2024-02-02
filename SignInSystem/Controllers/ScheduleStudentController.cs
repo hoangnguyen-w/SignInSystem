@@ -16,6 +16,7 @@ namespace SignInSystem.Controllers
             _scheduleStudentService = scheduleStudentService;
         }
 
+        [Authorize(Roles = "Admin, Staff, Student")]
         [HttpGet("GetRoom/{room}")]
         public async Task<ActionResult<List<ScheduleStudent>>> GetRoom(string room)
         {
@@ -36,7 +37,8 @@ namespace SignInSystem.Controllers
             }
         }
 
-        [HttpGet("GetStudent/{room}")]
+        [Authorize(Roles = "Admin, Staff, Student")]
+        [HttpGet("GetStudent/{student}")]
         public async Task<ActionResult<List<ScheduleStudent>>> GetStudent(string studentID)
         {
             try
@@ -45,7 +47,7 @@ namespace SignInSystem.Controllers
 
                 if (list == null)
                 {
-                    return NotFound("Room không tồn tại, vui lòng xem lại Room");
+                    return NotFound("StudentID không tồn tại, vui lòng xem lại StudentID");
                 }
 
                 return Ok(list);
@@ -57,7 +59,7 @@ namespace SignInSystem.Controllers
         }
 
         [Authorize(Roles = "Admin, Staff")]
-        [HttpGet("GetByRoleID/{id}")]
+        [HttpGet("GetByStudentID/{id}")]
         public async Task<ActionResult<ScheduleStudent>> GetByID(int id)
         {
             try
