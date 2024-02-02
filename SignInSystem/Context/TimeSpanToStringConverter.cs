@@ -3,17 +3,29 @@ using System.Text.Json.Serialization;
 #nullable disable
 namespace SignInSystem.Context
 {
-    public class TimeSpanToStringConverter : JsonConverter<TimeSpan>
+    public class TimeSpanToStringConverter : JsonConverter<TimeSpan?>
     {
-        public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override TimeSpan? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var value = reader.GetString();
-            return TimeSpan.Parse(value);
+            if (TimeSpan.TryParse(value, out var result))
+            {
+                return result;
+            }
+            return null;
         }
 
-        public override void Write(Utf8JsonWriter writer, TimeSpan value, JsonSerializerOptions options)
+        public override void Write(Utf8JsonWriter writer, TimeSpan? value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString());
+            if (value.HasValue)
+            {
+                writer.WriteStringValue(value.Value.ToString());
+            }
+            else
+            {
+                writer.WriteNullValue();
+            }
         }
     }
+
 }
