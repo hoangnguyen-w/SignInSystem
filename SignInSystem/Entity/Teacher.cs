@@ -44,6 +44,9 @@ namespace SignInSystem.Entity
         [JsonIgnore]
         public virtual ICollection<ScheduleTeacher> Schedules { get; set; }
 
+        [JsonIgnore]
+        public virtual ICollection<Teacher> Teachers { get; set; }
+
 
         //JWT authentication
         public string RefreshToken { get; set; }

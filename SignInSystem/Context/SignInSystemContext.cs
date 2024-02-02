@@ -33,6 +33,10 @@ namespace SignInSystem.Context
 
         public DbSet<Voucher> Vouchers { get; set; }
 
+        public DbSet<Holiday> Holidays { get; set; }    
+
+        public DbSet<Salary> Salaries { get; set; }
+
         public SignInSystemContext(DbContextOptions options) : base(options)
         {
         }

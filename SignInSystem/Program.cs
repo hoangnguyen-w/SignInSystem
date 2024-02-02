@@ -82,6 +82,7 @@ builder.Services.AddScoped<IScoreService, ScoreService>();
 builder.Services.AddScoped<IScheduleStudentService, ScheduleStudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IScheduleTeacherService, ScheduleTeacherService>();
+builder.Services.AddScoped<IHolidayService, HolidayService>();
 
 var app = builder.Build();
 
