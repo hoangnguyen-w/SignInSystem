@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignInSystem.Context;
 
@@ -11,9 +12,10 @@ using SignInSystem.Context;
 namespace SignInSystem.Migrations
 {
     [DbContext(typeof(SignInSystemContext))]
-    partial class SignInSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20240202135227_FixLogic")]
+    partial class FixLogic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,29 +174,27 @@ namespace SignInSystem.Migrations
 
             modelBuilder.Entity("SignInSystem.Entity.Salary", b =>
                 {
-                    b.Property<int>("SalaryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("SalaryID")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SalaryID"), 1L, 1);
-
-                    b.Property<float>("LecturerSalaryPercentStudent")
-                        .HasColumnType("real");
+                    b.Property<string>("LecturerSalaryPercentStudent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("SalaryAllowance")
-                        .HasColumnType("real");
+                    b.Property<string>("SalaryAllowance")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeacherID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<float>("TotalClassRevenue")
-                        .HasColumnType("real");
+                    b.Property<string>("TotalClassRevenue")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("TotalSalary")
-                        .HasColumnType("real");
+                    b.Property<string>("TotalSalary")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SalaryID");
 
@@ -524,6 +524,9 @@ namespace SignInSystem.Migrations
                     b.Property<string>("TaxCode")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TeacherID1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("TeacherName")
                         .HasColumnType("nvarchar(max)");
 
@@ -540,6 +543,8 @@ namespace SignInSystem.Migrations
                     b.HasIndex("RoleID");
 
                     b.HasIndex("SubjectID");
+
+                    b.HasIndex("TeacherID1");
 
                     b.ToTable("Teachers");
 
@@ -664,7 +669,7 @@ namespace SignInSystem.Migrations
             modelBuilder.Entity("SignInSystem.Entity.Salary", b =>
                 {
                     b.HasOne("SignInSystem.Entity.Teacher", "Teacher")
-                        .WithMany("Salaries")
+                        .WithMany()
                         .HasForeignKey("TeacherID");
 
                     b.Navigation("Teacher");
@@ -748,6 +753,10 @@ namespace SignInSystem.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SignInSystem.Entity.Teacher", null)
+                        .WithMany("Teachers")
+                        .HasForeignKey("TeacherID1");
+
                     b.Navigation("Class");
 
                     b.Navigation("Role");
@@ -816,9 +825,9 @@ namespace SignInSystem.Migrations
 
             modelBuilder.Entity("SignInSystem.Entity.Teacher", b =>
                 {
-                    b.Navigation("Salaries");
-
                     b.Navigation("Schedules");
+
+                    b.Navigation("Teachers");
                 });
 
             modelBuilder.Entity("SignInSystem.Entity.TuitionType", b =>

@@ -113,6 +113,25 @@ namespace SignInSystem.Controllers
             }
         }
 
+        [HttpPut("Update/{teacherID}/{classID}")]
+        public async Task<ActionResult> UpdateTeacher(string teacherID, string classID)
+        {
+            try
+            {
+                var list = await _teacherService.FindIDToResult(teacherID);
+                if (list == null)
+                {
+                    return NotFound("TeacherID không tồn tại, vui lòng kiểm tra lại TeacherID!!!!");
+                }
+                await _teacherService.CreateTeacherInClass(teacherID, classID);
+                return Ok(list);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPut("Update/{id}")]
         public async Task<ActionResult> UpdateTeacher(string id, UpdateTeacherDTO updateTeacherDTO)
         {
@@ -121,7 +140,7 @@ namespace SignInSystem.Controllers
                 var list = await _teacherService.FindIDToResult(id);
                 if (list == null)
                 {
-                    return NotFound("RoleID không tồn tại, vui lòng kiểm tra lại RoleID!!!!");
+                    return NotFound("TeacherID không tồn tại, vui lòng kiểm tra lại TeacherID!!!!");
                 }
                 await _teacherService.EditTeacher(id, updateTeacherDTO);
                 return Ok(updateTeacherDTO);
@@ -140,7 +159,7 @@ namespace SignInSystem.Controllers
                 var list = await _teacherService.FindIDToResult(id);
                 if (list == null)
                 {
-                    return NotFound("RoleID không tồn tại, vui lòng kiểm tra lại RoleID!!!!");
+                    return NotFound("TeacherID không tồn tại, vui lòng kiểm tra lại TeacherID!!!!");
                 }
 
                 await _teacherService.DeleteTeacher(id);

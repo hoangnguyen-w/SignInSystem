@@ -60,13 +60,13 @@ namespace SignInSystem.Service
         {
             var cla = _context.Classes.FirstOrDefault(c => c.ClassID.Equals(id));
             
-            if(cla.StatusClass != 1)
+            if(cla.StatusClass == 2)
             {
                 cla.StatusClass = 1;
                 _context.Classes.Update(cla);
                 await _context.SaveChangesAsync();
             }
-            else
+            else if(cla.StatusClass == 1)
             {
                 cla.StatusClass = 2;
                 _context.Classes.Update(cla);

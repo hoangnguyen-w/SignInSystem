@@ -19,6 +19,8 @@ namespace SignInSystem.Interface
 
         Task CreateTeacher(RegisterTeacherDTO registerTeacherDTO);
 
+        Task CreateTeacherInClass(string teacherID, string classID);
+
         Task EditTeacher(string id, UpdateTeacherDTO updateTeacherDTO);
 
         Task DeleteTeacher(string id);

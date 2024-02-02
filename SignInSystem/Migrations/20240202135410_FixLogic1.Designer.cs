@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SignInSystem.Context;
 
@@ -11,9 +12,10 @@ using SignInSystem.Context;
 namespace SignInSystem.Migrations
 {
     [DbContext(typeof(SignInSystemContext))]
-    partial class SignInSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20240202135410_FixLogic1")]
+    partial class FixLogic1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,29 +174,27 @@ namespace SignInSystem.Migrations
 
             modelBuilder.Entity("SignInSystem.Entity.Salary", b =>
                 {
-                    b.Property<int>("SalaryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("SalaryID")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SalaryID"), 1L, 1);
-
-                    b.Property<float>("LecturerSalaryPercentStudent")
-                        .HasColumnType("real");
+                    b.Property<string>("LecturerSalaryPercentStudent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("SalaryAllowance")
-                        .HasColumnType("real");
+                    b.Property<string>("SalaryAllowance")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TeacherID")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<float>("TotalClassRevenue")
-                        .HasColumnType("real");
+                    b.Property<string>("TotalClassRevenue")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("TotalSalary")
-                        .HasColumnType("real");
+                    b.Property<string>("TotalSalary")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SalaryID");
 

@@ -40,12 +40,16 @@ namespace SignInSystem.Entity
         public int RoleID { get; set; }
         public virtual Role Role { get; set; }
 
+        [ForeignKey("Class")]
+        public string? ClassID { get; set; }
+        public virtual Class Class { get; set; }
+
 
         [JsonIgnore]
         public virtual ICollection<ScheduleTeacher> Schedules { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Teacher> Teachers { get; set; }
+        public virtual ICollection<Salary> Salaries { get; set; }
 
 
         //JWT authentication

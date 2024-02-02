@@ -15,6 +15,40 @@ namespace SignInSystem.Service
             _context = context;
         }
 
+        public async Task CreateTeacherInClass(string teacherID, string classID)
+        {
+            var teacher = _context.Teachers.FirstOrDefault(t => t.TeacherID == teacherID);
+            var check = _context.Classes.FirstOrDefault(t => t.ClassID == classID);
+
+            if (teacher == null)
+            {
+                throw new BadHttpRequestException("TeacherID không tồn tại, vui lòng kiểm tra lại TeacherID!!!!");
+            }
+            else
+            {
+                if(check == null)
+                {
+                    throw new BadHttpRequestException("ClassID không tồn tại, vui lòng kiểm tra lại ClassID!!!!");
+                }
+                else
+                {
+                    if(check.StatusClass == 3)
+                    {
+                        throw new BadHttpRequestException("Lớp này đã có giáo viên dạy!!!!");
+                    }
+                    else
+                    {
+                        check.StatusClass = 3;
+                        teacher.ClassID = classID;
+
+                        _context.Teachers.Update(teacher);
+                        _context.Classes.Update(check);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+            }
+        }
+
 
         public async Task CreateTeacher(RegisterTeacherDTO registerTeacherDTO)
         {
